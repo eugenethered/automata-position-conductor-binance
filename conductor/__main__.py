@@ -3,7 +3,7 @@ import logging
 from cache.holder.RedisCacheHolder import RedisCacheHolder
 from core.arguments.command_line_arguments import option_arg_parser
 
-from binanceposition.conductor.BinancePositionConductor import BinancePositionConductor
+from conductor.BinancePositionConductor import BinancePositionConductor
 
 if __name__ == '__main__':
     command_line_arg_parser = option_arg_parser()

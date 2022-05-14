@@ -2,7 +2,7 @@ from position.provider.PositionProvider import PositionProvider
 from positionrepo.repository.PositionRepository import PositionRepository
 from positionrepo.repository.PositionSlipRepository import PositionSlipRepository
 
-from binanceposition.provider.supplier.BinancePositionSupplier import BinancePositionSupplier
+from conductor.provider.supplier.BinancePositionSupplier import BinancePositionSupplier
 
 
 class BinancePositionConductor:

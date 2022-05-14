@@ -1,4 +1,4 @@
-from binanceposition.provider.supplier.BinancePositionSupplier import BinancePositionSupplier
+from conductor.provider.supplier.BinancePositionSupplier import BinancePositionSupplier
 
 if __name__ == '__main__':
 

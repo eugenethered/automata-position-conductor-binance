@@ -3,8 +3,8 @@ from typing import List
 from binance.spot import Spot as Client
 from core.number.BigFloat import BigFloat
 from core.options.exception.MissingOptionError import MissingOptionError
+from core.position.Position import Position
 from position.provider.supplier.PositionSupplier import PositionSupplier
-from positionrepo.Position import Position
 from utility.json_utility import as_data
 
 BINANCE_API_KEY = 'BINANCE_API_KEY'
