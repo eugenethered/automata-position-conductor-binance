@@ -4,8 +4,8 @@ from binance.spot import Spot as Client
 from core.number.BigFloat import BigFloat
 from core.options.exception.MissingOptionError import MissingOptionError
 from core.position.Position import Position
+from coreutility.collection.dictionary_utility import as_data
 from position.provider.supplier.PositionSupplier import PositionSupplier
-from utility.json_utility import as_data
 
 BINANCE_API_KEY = 'BINANCE_API_KEY'
 BINANCE_API_SECRET = 'BINANCE_API_SECRET'
