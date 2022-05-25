@@ -1,32 +1,34 @@
+import logging
 from typing import List
 
 from binance.spot import Spot as Client
 from core.number.BigFloat import BigFloat
-from core.options.exception.MissingOptionError import MissingOptionError
 from core.position.Position import Position
+from coreauth.AuthenticatedCredentials import AuthenticatedCredentials
 from coreutility.collection.dictionary_utility import as_data
 from position.provider.supplier.PositionSupplier import PositionSupplier
-
-BINANCE_API_KEY = 'BINANCE_API_KEY'
-BINANCE_API_SECRET = 'BINANCE_API_SECRET'
 
 
 class BinancePositionSupplier(PositionSupplier):
 
     def __init__(self, options):
+        self.log = logging.getLogger(__name__)
         self.options = options
-        self.__check_options()
-        self.client = Client(self.options[BINANCE_API_KEY], self.options[BINANCE_API_SECRET])
+        (self.api_key, self.api_secret) = self.init_auth_credentials()
+        self.client = None
 
-    def __check_options(self):
-        if self.options is None:
-            raise MissingOptionError(f'missing option please provide options {BINANCE_API_KEY} and {BINANCE_API_SECRET}')
-        if BINANCE_API_KEY not in self.options:
-            raise MissingOptionError(f'missing option please provide option {BINANCE_API_KEY}')
-        if BINANCE_API_SECRET not in self.options:
-            raise MissingOptionError(f'missing option please provide option {BINANCE_API_SECRET}')
+    def init_auth_credentials(self):
+        authenticated_credentials = AuthenticatedCredentials(self.options)
+        api_key = authenticated_credentials.obtain_auth_value('API_KEY')
+        api_secret = authenticated_credentials.obtain_auth_value('API_SECRET')
+        return api_key, api_secret
+
+    def lazy_init_client(self):
+        if self.client is None:
+            self.client = Client(self.api_key, self.api_secret)
 
     def get_positions(self) -> List[Position]:
+        self.lazy_init_client()
         account_info = self.client.account()
         position_balances = account_info['balances']
         return self.extract_positions(position_balances)
