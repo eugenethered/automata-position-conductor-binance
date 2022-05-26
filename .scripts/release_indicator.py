@@ -13,8 +13,8 @@ def read_from_file(file_path):
 
 def get_setup_value(setup_key):
     file_contents = read_from_file(SETUP_CFG_FILE)
-    version = [line for line in file_contents if line.find(setup_key) >= 0]
-    normalized_value = version[0].replace('\n', '').replace(' ', '').replace(f'{setup_key}=', '')
+    value = [line for line in file_contents if line.find(setup_key) >= 0]
+    normalized_value = value[0].replace('\n', '').replace(' = ', '=').replace(f'{setup_key}=', '')
     return normalized_value
 
 
