@@ -3,6 +3,7 @@ import logging
 from cache.holder.RedisCacheHolder import RedisCacheHolder
 from core.arguments.command_line_arguments import option_arg_parser
 from logger.ConfigureLogger import ConfigureLogger
+from metainfo.MetaInfo import MetaInfo
 
 from conductor.BinancePositionConductor import BinancePositionConductor
 
@@ -10,7 +11,9 @@ from conductor.BinancePositionConductor import BinancePositionConductor
 def start():
     ConfigureLogger()
 
-    command_line_arg_parser = option_arg_parser('persuader-technology-automata-position-conductor-binance')
+    meta_info = MetaInfo('persuader-technology-automata-position-conductor-binance')
+
+    command_line_arg_parser = option_arg_parser(meta_info)
     args = command_line_arg_parser.parse_args()
 
     log = logging.getLogger('Binance Position Conductor')
