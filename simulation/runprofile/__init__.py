@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     RedisCacheHolder(options)
 
-    process_run_profile = ProcessRunProfile('binance', 'position-conductor', RunProfile.DAY)
+    process_run_profile = ProcessRunProfile('binance', 'position-conductor', RunProfile.DAY, True)
 
     repository = ProcessRunProfileRepository(options)
     repository.store(process_run_profile)
