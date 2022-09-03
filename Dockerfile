@@ -11,5 +11,13 @@ USER apprunner
 WORKDIR /app
 COPY --from=BUILDER /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
 COPY --chown=apprunner:apprunner ./conductor ./conductor
-ENV PYTHONPATH="${PYTHONPATH}:/app/conductor"
+
+ENV PYTHONPATH="${PYTHONPATH}:/app/conductor" \
+    REDIS_SERVER_ADDRESS=127.0.0.1 \
+    REDIS_SERVER_PORT=6379 \
+    POSITION_SLIP_KEY=binance:position:slip \
+    POSITION_KEY=binance:position \
+    POSITION_HISTORY_LIMIT=100 \
+    AUTH_INFO_KEY=binance:auth:info
+
 CMD ["python", "conductor/__main__.py"]
