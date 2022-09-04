@@ -18,6 +18,9 @@ ENV PYTHONPATH="${PYTHONPATH}:/app/conductor" \
     POSITION_SLIP_KEY=binance:position:slip \
     POSITION_KEY=binance:position \
     POSITION_HISTORY_LIMIT=100 \
-    AUTH_INFO_KEY=binance:auth:info
+    AUTH_INFO_KEY=binance:auth:info \
+    VERSION=0.1 \
+    PROCESS_RUN_PROFILE_KEY={}:process:run-profile:{} \
+    PROCESS_KEY={}:process:status:{}
 
 CMD ["python", "conductor/__main__.py"]
