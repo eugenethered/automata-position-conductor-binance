@@ -20,7 +20,7 @@ ENV PYTHONPATH="${PYTHONPATH}:/app/conductor" \
     POSITION_HISTORY_LIMIT=100 \
     AUTH_INFO_KEY=binance:auth:info \
     VERSION=0.1 \
-    PROCESS_RUN_PROFILE_KEY={}:process:run-profile:{} \
-    PROCESS_KEY={}:process:status:{}
+    PROCESS_RUN_PROFILE_KEY=binance:process:mv:run-profile \
+    PROCESS_KEY=binance:process:mv:status
 
 CMD ["python", "conductor/__main__.py"]
