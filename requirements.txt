@@ -1,6 +1,6 @@
 binance-connector==1.11.0
 persuader-technology-automata-core>=0.6.0
-persuader-technology-automata-utilities>=0.2.2
+persuader-technology-automata-utilities>=0.2.3
 persuader-technology-automata-logger>=0.0.5
 persuader-technology-automata-redis>=0.3.8
 persuader-technology-automata-process-manager>=0.2.1
