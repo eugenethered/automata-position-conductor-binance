@@ -5,4 +5,4 @@ persuader-technology-automata-logger>=0.0.5
 persuader-technology-automata-redis>=0.3.8
 persuader-technology-automata-process-manager>=0.2.2
 persuader-technology-automata-position>=0.1.5
-persuader-technology-automata-auth>=0.1.5
+persuader-technology-automata-auth>=0.1.6
