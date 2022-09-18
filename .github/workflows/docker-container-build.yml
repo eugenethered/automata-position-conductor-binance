@@ -1,0 +1,50 @@
+name: Dockerize Container Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  dockerize:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Configure Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install python-dotenv requests
+    - name: Check CURRENT vs RELEASED version
+      run: |
+        echo | python .scripts/tag_release_indicator.py >> $GITHUB_ENV
+        echo | python .scripts/namespace_info.py >> $GITHUB_ENV
+        echo | python .scripts/repository_info.py >> $GITHUB_ENV
+        echo | python .scripts/tag_info.py >> $GITHUB_ENV
+    - name: Set up QEMU
+      if: env.RELEASE_TO_DOCKER_REGISTRY == 'true'
+      uses: docker/setup-qemu-action@v2
+    - name: Set up Docker Buildx
+      if: env.RELEASE_TO_DOCKER_REGISTRY == 'true'
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to Docker Registry
+      if: env.RELEASE_TO_DOCKER_REGISTRY == 'true'
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build and push
+      id: docker_build
+      if: env.RELEASE_TO_DOCKER_REGISTRY == 'true'
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        file: ./Dockerfile
+        builder: ${{ steps.buildx.outputs.name }}
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ env.RELEASE_DOCKER_NAMESPACE }}/${{ env.RELEASE_DOCKER_REPOSITORY }}:${{ env.RELEASE_DOCKER_TAG }}
