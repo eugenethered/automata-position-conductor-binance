@@ -1,5 +1,6 @@
-import requests
 from dotenv import dotenv_values
+import requests
+import re
 
 DOCKER_REGISTRY_RELEASE_TAG_INFO_URL = 'https://hub.docker.com/v2/namespaces/{namespace}/repositories/{repository}/tags/{tag}'
 
@@ -33,7 +34,7 @@ def get_released_version(version):
 
 
 def normalize_version(version):
-    return 0 if version is None else float(version)
+    return 0 if version is None else float(re.sub('\\w+-', '', version))
 
 
 if __name__ == '__main__':
